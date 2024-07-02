@@ -6,4 +6,7 @@
 
 body{
     max-width: 1220px;
+    background-image: url('./assets/solnce-peyzazhi-svet-luchi-utro.jpg');
+    background-repeat: no-repeat;
+    background-size: center/cover;
 }
