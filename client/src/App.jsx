@@ -4,17 +4,18 @@ import style from './app.module.css'
 
 function App() {
   const keyApi = '282c885c813671f84ff97415ce72cc05'
-  const [cityName, setCityName] = useState('');
+  const [location, setLocation] = useState('');
   const [weather, setWeather] = useState({})
 
   const getData = async () => {
-    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${keyApi}`)
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${keyApi}`)
     setWeather(response.data)
+    console.log(response.data);
   }
 
   useEffect(() => {
     getData()
-  }, [cityName]);
+  }, [location]);
 
   return (
     <>
@@ -33,13 +34,16 @@ function App() {
           </div>
           <div className={style.button}>
             <div className={style.feels}>
-              <p>65°F</p>
+              <p className={style.bold}>65°F</p>
+              <p>Feels Like</p>
             </div>
             <div className={style.humidity}>
-              <p>20%</p>
+              <p className={style.bold}>20%</p>
+              <p>Humidity</p>
             </div>
             <div className={style.wind}>
-              12 MPH
+             <p className={style.bold}>12 MPH</p>
+             <p>Wind Speed</p>
             </div>
           </div>
         </div>
