@@ -10,9 +10,7 @@ function App() {
   const getData = async () => {
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${keyApi}`)
     setWeather(response.data)
-    console.log(response.data);
   }
-
   useEffect(() => {
     getData()
   }, [location]);
@@ -20,37 +18,48 @@ function App() {
   return (
     <>
       <div className={style.wrapper}>
+        <div className={style.search}>
+
+          <button onClick={() => {
+            setWeather({})
+            setLocation('')
+          }}>Reset</button>
+
+          <input value={location} type="text" onChange={(e) => setLocation(e.target.value)} placeholder='enter location' />
+          <button onClick={()=>getData(location)}>Search</button>
+        </div>
         <div className={style.container}>
           <div className={style.top}>
             <div className={style.location}>
-              <p>Dallas</p>
+              <p>{weather.name}</p>
             </div>
             <div className={style.temp}>
-              <h1>60°F</h1>
+              {weather.main ? <h1>{weather.main.temp.toFixed()} °F</h1> : null}
             </div>
             <div className={style.description}>
-              <p>Clouds</p>
+              {weather.weather ? <p>{weather.weather[0].main}</p> : null}
             </div>
           </div>
-          <div className={style.button}>
-            <div className={style.feels}>
-              <p className={style.bold}>65°F</p>
-              <p>Feels Like</p>
+          {weather.name != undefined &&
+            <div className={style.bottom}>
+              <div className={style.feels}>
+                {weather.main ? <p className={style.bold}>{weather.main.feels_like.toFixed()} °F</p> : null}
+                <p>Feels Like</p>
+              </div>
+              <div className={style.humidity}>
+                {weather.main ? <p className={style.bold}>{weather.main.humidity} %</p> : null}
+                <p>Humidity</p>
+              </div>
+              <div className={style.wind}>
+                {weather.main ? <p className={style.bold}>{weather.wind.speed.toFixed()} MPH</p> : null}
+                <p>Wind Speed</p>
+              </div>
             </div>
-            <div className={style.humidity}>
-              <p className={style.bold}>20%</p>
-              <p>Humidity</p>
-            </div>
-            <div className={style.wind}>
-             <p className={style.bold}>12 MPH</p>
-             <p>Wind Speed</p>
-            </div>
-          </div>
+          }
+
         </div>
       </div>
-      {/* <input type="text" onChange={(e) => setCityName(e.target.value)} placeholder='enter city ​​name' value={cityName} />
-      <button onClick={() => setWeather(cityName)}>Search</button>
-      <button>Reset</button> */}
+
 
     </>
   )
