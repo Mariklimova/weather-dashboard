@@ -6,6 +6,7 @@ function App() {
   const keyApi = '282c885c813671f84ff97415ce72cc05'
   const [location, setLocation] = useState('');
   const [weather, setWeather] = useState({})
+  const [icon, setIcon] = useState()
 
   const getData = async () => {
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${keyApi}`)
@@ -13,7 +14,16 @@ function App() {
   }
   useEffect(() => {
     getData()
-  }, [location]);
+  }, []);
+
+  const getIcon = async () => {
+    const response = await axios.get(`https://openweathermap.org/img/wn/04d@2x.png`)
+    setIcon(response.data)
+  }
+  useEffect(() => {
+    getIcon()
+  }, []);
+  // https://openweathermap.org/img/wn/10d@2x.png
 
   return (
     <>
@@ -26,7 +36,7 @@ function App() {
           }}>Reset</button>
 
           <input value={location} type="text" onChange={(e) => setLocation(e.target.value)} placeholder='enter location' />
-          <button onClick={()=>getData(location)}>Search</button>
+          <button onClick={() => getData(location)}>Search</button>
         </div>
         <div className={style.container}>
           <div className={style.top}>
@@ -37,6 +47,9 @@ function App() {
               {weather.main ? <h1>{weather.main.temp.toFixed()} °F</h1> : null}
             </div>
             <div className={style.description}>
+              {weather.weather ? <p>{weather.weather[0].icon}</p> : null}
+              {/* {weather.weather ? <p>{icon}</p> : null} */}
+
               {weather.weather ? <p>{weather.weather[0].main}</p> : null}
             </div>
           </div>
