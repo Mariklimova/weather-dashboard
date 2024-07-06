@@ -6,8 +6,8 @@ function App() {
   const keyApi = '282c885c813671f84ff97415ce72cc05'
   const [location, setLocation] = useState('');
   const [weather, setWeather] = useState({})
-  const [icon, setIcon] = useState()
 
+  
   const getData = async () => {
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${keyApi}`)
     setWeather(response.data)
@@ -16,14 +16,6 @@ function App() {
     getData()
   }, []);
 
-  const getIcon = async () => {
-    const response = await axios.get(`https://openweathermap.org/img/wn/04d@2x.png`)
-    setIcon(response.data)
-  }
-  useEffect(() => {
-    getIcon()
-  }, []);
-  // https://openweathermap.org/img/wn/10d@2x.png
 
   return (
     <>
@@ -47,8 +39,7 @@ function App() {
               {weather.main ? <h1>{weather.main.temp.toFixed()} °F</h1> : null}
             </div>
             <div className={style.description}>
-              {weather.weather ? <p>{weather.weather[0].icon}</p> : null}
-              {/* {weather.weather ? <p>{icon}</p> : null} */}
+              {weather.weather ? <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} /> : null}
 
               {weather.weather ? <p>{weather.weather[0].main}</p> : null}
             </div>
