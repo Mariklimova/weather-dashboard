@@ -1,36 +1,7 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import style from './app.module.css'
 
-function App() {
-  const keyApi = '282c885c813671f84ff97415ce72cc05'
-  const [location, setLocation] = useState('');
-  const [weather, setWeather] = useState({})
-
-  
-  const getData = async () => {
-    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${keyApi}`)
-    setWeather(response.data);
-  }
-  useEffect(() => {
-    getData()
-  }, []);
-
-
-  return (
-    <>
-      <div className={style.wrapper}>
-        <div className={style.search}>
-
-          <button onClick={() => {
-            setWeather({})
-            setLocation('')
-          }}>Reset</button>
-
-          <input value={location} type="text" onChange={(e) => setLocation(e.target.value)} placeholder='enter location' />
-          <button onClick={() => getData(location)}>Search</button>
-        </div>
-        <div className={style.container}>
+function weatherDisplay() {
+   return <>
+   <div className={style.container}>
           <div className={style.top}>
             <div className={style.location}>
               <p>{weather.name}</p>
@@ -62,11 +33,6 @@ function App() {
           }
 
         </div>
-      </div>
-
-
-    </>
-  )
+   </> 
 }
-
-export default App
+export default weatherDisplay
