@@ -1,5 +1,6 @@
+import style from './weather.module.css'
 
-function weatherDisplay() {
+function WeatherDisplay({weather}) {
    return <>
    <div className={style.container}>
           <div className={style.top}>
@@ -7,7 +8,7 @@ function weatherDisplay() {
               <p>{weather.name}</p>
             </div>
             <div className={style.temp}>
-              {weather.main ? <h1>{weather.main.temp.toFixed()} °F</h1> : null}
+              {weather.main ? <h1>{(weather.main.temp-273.15).toFixed()} °C</h1> : null}
             </div>
             <div className={style.description}>
               {weather.weather ? <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} /> : null}
@@ -15,10 +16,11 @@ function weatherDisplay() {
               {weather.weather ? <p>{weather.weather[0].main}</p> : null}
             </div>
           </div>
+
           {weather.name != undefined &&
             <div className={style.bottom}>
               <div className={style.feels}>
-                {weather.main ? <p className={style.bold}>{weather.main.feels_like.toFixed()} °F</p> : null}
+                {weather.main ? <p className={style.bold}>{(weather.main.feels_like-273.15).toFixed()} °С</p> : null}
                 <p>Feels Like</p>
               </div>
               <div className={style.humidity}>
@@ -35,4 +37,4 @@ function weatherDisplay() {
         </div>
    </> 
 }
-export default weatherDisplay
+export default WeatherDisplay
