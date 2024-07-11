@@ -2,7 +2,7 @@ import { useState } from 'react';
 import style from './search.module.css'
 
 function SearchForm({setLocation,setWeather,getData}) {
-    const [city, setCity] = useState('');
+    // const [city, setCity] = useState('');
     // const [weather, setWeather] = useState({})
 
     
@@ -11,7 +11,7 @@ function SearchForm({setLocation,setWeather,getData}) {
 
             <button onClick={() => {
                 setWeather({})
-                setCity('')
+                setLocation('')
             }}>Reset</button>
 
             <input value={location} type="text" onChange={(e) => setLocation(e.target.value)} placeholder='enter location' />
