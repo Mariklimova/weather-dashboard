@@ -18,17 +18,14 @@ function App() {
   }
 
   useEffect(() => {
-    getData(location)
-  }, []);
+    getData()
+  }, [location]);
 
 
   return (
     <>
-
-      <SearchForm setLocation={setLocation} setWeather={setWeather} getData={getData} />
+      <SearchForm setLocation={setLocation} setWeather={setWeather} />
       <WeatherDisplay weather={weather} />
-
-
     </>
   )
 }
