@@ -8,12 +8,13 @@ import WeatherDisplay from './components/WeatherDisplay/WeatherDisplay';
 const keyApi = '282c885c813671f84ff97415ce72cc05'
 
 function App() {
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(localStorage.getItem('nameCity')||'');
   const [weather, setWeather] = useState({})
 
 
   const getData = async () => {
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${keyApi}`)
+    localStorage.setItem('nameCity', location)
     setWeather(response.data);
   }
 
